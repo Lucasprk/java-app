@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        springBootVersion = '2.7.0'
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+group = 'br.com.lsreis'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+test {
+    dependsOn 'cleanTest'
+    useJUnitPlatform()
+}
+
+
+springBoot {
+    buildInfo()
+}
+
+mainClassName = 'br.com.lsreis.seultalk.JavaApplication'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
+}
+
